@@ -39,6 +39,7 @@ void setup(){
   w2 = new Window(width/4,height/2,300,300,img2,windowName2,path2);
   bg = createGraphics(width,height);
   noiseBackground();
+  image(bg,0,0);
 }
 
 int currentIndex = 0;
@@ -65,7 +66,7 @@ void draw(){
   
   // Display the text on the screen
   textSize(50);
-  text(displayedText, width/4, 100);
+  text(displayedText, width/4, height/6);
 
 }
 
@@ -168,6 +169,8 @@ class Window{
         println("Opening");
         exec(path);
         delay(30000);
+        mouseX = width/2;
+        mouseY = height/2;
     }
   }
 
@@ -204,6 +207,8 @@ class WindowCounter {
     }
 
     if (isCursorOnWindow && millis() - cursorEnterTime >= actionDelay) {
+      isCursorOnWindow = false;
+      cursorEnterTime = -1; // Reset the enter time when the cursor exits the window
       return true;
     }
     else {
