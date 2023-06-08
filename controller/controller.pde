@@ -1,38 +1,64 @@
+// Hallway Display
+// Michael Curry, 2023
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 float increment = 0.02;
 
 //All the paths to the applications.
-String path = "/home/mike/Desktop/CompMedia/Exports/Jaden/linux-amd64/jaden";
+String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
+String path2 = "/home/mike/Desktop/HallwayDisplay/Exports/Lara/linux-amd64/rain";
 
 //All the window names.
 String windowName = "Jaden";
+String windowName2 = "Lara";
 
 //All the preview images;
 PImage img1;
+PImage img2;
 
 //All the window objects.
 Window w1;
+Window w2;
+
+//Background Image.
+PGraphics bg;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+public void settings() {
+  size(displayWidth-100,displayHeight-100); // Set the desired width and height
+}
 
 void setup(){
-  size(1000,1000);
   frameRate(60);
+  cursor(HAND);
   img1 = loadImage("images/Jaden.png");
-  w1 = new Window(100,100,200,200,img1,windowName,path);
+  img2 = loadImage("images/Lara.png");
+  w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
+  w2 = new Window(width/4,height/2,300,300,img2,windowName2,path2);
+  bg = createGraphics(width,height);
   noiseBackground();
 }
 
 void draw(){
-  noiseBackground();
+  image(bg,0,0);
   w1.draw();
+  w2.draw();
   w1.launch();
+  w2.launch();
 }
 
+float detail = 0.4;
 
 void noiseBackground(){
-   loadPixels();
+  bg.beginDraw();
+
+  bg.loadPixels();
 
   float xoff = 0.0; // Start xoff at 0
-  float detail = random(.1,.7);
-  noiseDetail(8, detail);
+  detail = detail + random(-0.01,0.01);
+  noiseDetail(5, detail);
   
   // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
   for (int x = 0; x < width; x++) {
@@ -44,14 +70,15 @@ void noiseBackground(){
       // Calculate noise and scale by 255
       float bright = (noise(xoff, yoff) * 255) / 2;
 
-      bright = map(bright,0,255,40,50);
+      bright = map(bright,0,255,40,100);
       
       // Set each pixel onscreen to a grayscale value
-      pixels[x+y*width] = color(bright);
+      bg.pixels[x+y*width] = color(bright);
     }
   }
   
-  updatePixels();
+  bg.updatePixels();
+  bg.endDraw();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,15 +116,17 @@ class Window{
 
     if(counter.isCursorInsideWindow()){
       
-      if(frame < 18){
+      if(frame < 15){
         noFill();
-        stroke(80 - frame);
+        stroke(70 - frame);
         strokeWeight(frame*2);
         rect(x-frame,y-frame,w+frame*2,h+frame*2);
-        if(frameCount%4 == 0){
+        if(frameCount%3 == 0){
           frame++;
         }
-    }
+      }else if(frame == 15){
+        frame = 0;
+      }
       
        
     }
