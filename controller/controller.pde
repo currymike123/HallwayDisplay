@@ -3,13 +3,13 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-float increment = 0.02;
-
 //All the paths to the applications.
 String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
 String path2 = "/home/mike/Desktop/HallwayDisplay/Exports/Lara/linux-amd64/rain";
 
 //All the window names.
+String title = "Select a Project to Launch . . . ";
+String displayedText = "";
 String windowName = "Jaden";
 String windowName2 = "Lara";
 
@@ -41,15 +41,36 @@ void setup(){
   noiseBackground();
 }
 
+int currentIndex = 0;
+
 void draw(){
   image(bg,0,0);
   w1.draw();
   w2.draw();
   w1.launch();
   w2.launch();
+
+   // Reveal characters one by one
+  if (currentIndex < title.length() && frameCount % 8 == 0) {
+   
+    // Append the next character to the displayed text
+    displayedText += title.charAt(currentIndex);
+    currentIndex++;
+  }
+
+  if(currentIndex  == title.length() && frameCount % 100 == 0){
+    displayedText = " ";
+    currentIndex = 0;
+  }
+  
+  // Display the text on the screen
+  textSize(50);
+  text(displayedText, width/4, 100);
+
 }
 
 float detail = 0.4;
+float increment = 0.02;
 
 void noiseBackground(){
   bg.beginDraw();
