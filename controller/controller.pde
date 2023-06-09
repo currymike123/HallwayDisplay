@@ -8,10 +8,17 @@ String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden
 String path2 = "/home/mike/Desktop/HallwayDisplay/Exports/Lara/linux-amd64/rain";
 
 //All the window names.
-String title = "Select a Project to Launch . . . ";
-String displayedText = "";
+
 String windowName = "Jaden";
 String windowName2 = "Lara";
+
+//All text strings.
+String title = "Select a Project to Launch . . . ";
+String jaden = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
+
+//All text objects.
+TextTitle t1;
+TextTitle t2;
 
 //All the preview images;
 PImage img1;
@@ -36,13 +43,15 @@ void setup(){
   img1 = loadImage("images/Jaden.png");
   img2 = loadImage("images/Lara.png");
   w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
+  t2 = new TextTitle(width/3,height/4,jaden,30);
   w2 = new Window(width/4,height/2,300,300,img2,windowName2,path2);
+  t1 = new TextTitle(width/4,height/6,title,60);
+
   bg = createGraphics(width,height);
   noiseBackground();
   image(bg,0,0);
 }
 
-int currentIndex = 0;
 
 void draw(){
   image(bg,0,0);
@@ -50,23 +59,8 @@ void draw(){
   w2.draw();
   w1.launch();
   w2.launch();
-
-   // Reveal characters one by one
-  if (currentIndex < title.length() && frameCount % 8 == 0) {
-   
-    // Append the next character to the displayed text
-    displayedText += title.charAt(currentIndex);
-    currentIndex++;
-  }
-
-  if(currentIndex  == title.length() && frameCount % 100 == 0){
-    displayedText = " ";
-    currentIndex = 0;
-  }
-  
-  // Display the text on the screen
-  textSize(50);
-  text(displayedText, width/4, height/6);
+  t1.draw();
+  t2.draw();
 
 }
 
@@ -102,6 +96,47 @@ void noiseBackground(){
   bg.updatePixels();
   bg.endDraw();
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class TextTitle{
+  
+  int x,y;
+  String title;
+  int textSize;
+  String displayedText;
+  int currentIndex;
+
+  TextTitle(int x, int y, String title, int textSize){
+    this.x = x;
+    this.y = y;
+    this.title = title;
+    this.textSize = textSize;
+    currentIndex = 0;
+    displayedText = "";
+  }
+
+  void draw(){
+
+   // Reveal characters one by one
+  if (currentIndex < title.length() && frameCount % 4 == 0) {
+   
+    // Append the next character to the displayed text
+    displayedText += title.charAt(currentIndex);
+    currentIndex++;
+  }
+
+  if(currentIndex  == title.length() && frameCount % 128 == 0){
+    displayedText = " ";
+    currentIndex = 0;
+  }
+  
+  // Display the text on the screen
+  textSize(textSize);
+  text(displayedText, x, y+textAscent());
+  }
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
