@@ -3,6 +3,16 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//Libraries 
+
+import processing.net.*;
+
+//Global Variables
+
+//Variables for the server.
+Client c;
+String data;
+
 //All the paths to the applications.
 String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
 String path2 = "/home/mike/Desktop/HallwayDisplay/Exports/Lara/linux-amd64/rain";
@@ -31,30 +41,79 @@ Window w2;
 //Background Image.
 PGraphics bg;
 
+//Screen Size
+int screenX;
+int screenY;
+
+//Mouse position
+int myMouseX;
+int myMouseY;
+
+//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public void settings() {
-  size(displayWidth-100,displayHeight-100); // Set the desired width and height
+
+  screenX = displayWidth-100;
+  screenY = displayHeight-100;
+  size(screenX,screenY); // Set the desired width and height
 }
 
 void setup(){
-  frameRate(60);
+  //Set the cursor to a hand.
   cursor(HAND);
+
+  //Load all the images.
   img1 = loadImage("images/Jaden.png");
   img2 = loadImage("images/Lara.png");
+
+  //Create all the objects.
   w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
   t2 = new TextTitle(width/3,height/4,jaden,30);
   w2 = new Window(width/4,height/2,300,300,img2,windowName2,path2);
   t1 = new TextTitle(width/4,height/6,title,60);
 
+  //Create the background image to be drawn to the screen.  Calculate it once and save it as an image. 
   bg = createGraphics(width,height);
   noiseBackground();
+
+  //Draw the background image to the screen.
   image(bg,0,0);
+
+  //Connect to the server for the mouse position.
+  c = new Client(this, "localhost", 9999);
+  
+  //Default mouse
+  myMouseX = 0;
+  myMouseY = 0;
 }
 
 
 void draw(){
+  
+
+  //Draw the image to the screen.
   image(bg,0,0);
+
+  //Get the data from the server.
+  if (c.available() > 0) {
+    // read the data from the client
+    data = c.readString();
+    
+    String[] xy = split(data, ',');
+    
+    float x = float(xy[0]);
+    float y = float(xy[1]);
+    
+    //Scaline factor
+    
+    //Set the mouse position to the data from the server.
+    myMouseX = int(map(int(x),0,640,0,screenX));
+    println(myMouseX);
+    myMouseY = int(map(int(y),0,640,0,screenY));
+  }
+
+  //UI
   w1.draw();
   w2.draw();
   w1.launch();
@@ -62,6 +121,10 @@ void draw(){
   t1.draw();
   t2.draw();
 
+  fill(255,0,0);
+  ellipse(myMouseX,myMouseY,200,200);
+
+  
 }
 
 float detail = 0.4;
@@ -252,11 +315,9 @@ class WindowCounter {
   }
 
   boolean isCursorInsideWindow() {
-    return mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h;
+    return myMouseX > x && myMouseX < x+w && myMouseY > y && myMouseY < y+h;
   }
 
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
