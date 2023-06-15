@@ -110,7 +110,7 @@ void draw(){
     //Set the mouse position to the data from the server.
     myMouseX = int(map(int(x),0,640,0,screenX));
     println(myMouseX);
-    myMouseY = int(map(int(y),0,640,0,screenY));
+    myMouseY = int(map(int(y),0,480,0,screenY));
   }
 
   //UI
