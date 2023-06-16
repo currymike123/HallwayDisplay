@@ -79,7 +79,13 @@ while True:
 
                     # send hand positions via server.
                     msg = f'{center_x},{center_y}'
-                    clientsocket.send(msg.encode('ascii'))
+                    try:
+                        clientsocket.send(msg.encode('ascii'))
+                    except BrokenPipeError:
+                        clientsocket.close()
+                        print("BrokenPipeError occurred, client disconnected prematurely.")
+                        
+                    
 
             #cv2.imshow('MediaPipe Hands', image)
             if cv2.waitKey(5) & 0xFF == 27:

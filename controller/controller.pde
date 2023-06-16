@@ -160,6 +160,12 @@ void noiseBackground(){
   bg.endDraw();
 }
 
+// This function is called when the sketch is stopped
+void stop() {
+  c.stop();  // Close the connection to the server
+  super.stop();
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class TextTitle{
