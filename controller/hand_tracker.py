@@ -21,6 +21,13 @@ serversocket.bind((host, port))
 # queue up to 5 requests
 serversocket.listen(5)
 
+# Are there multiple hands?
+multiple_hands = -1
+
+# Hand coordinates
+center_x = 0
+center_y = 0
+
 while True:
 # establish a connection
     clientsocket, addr = serversocket.accept()
@@ -58,11 +65,21 @@ while True:
 
             if results.multi_hand_landmarks:
                 if len(results.multi_hand_landmarks) > 1:
-                        print("Multiple hands detected, please keep one hand behind.")
+                    print("Multiple hands detected, please keep one hand behind.")
+                    multiple_hands = 1
+                    
+                    # send hand positions via server.
+                    msg = f'{center_x},{center_y},{multiple_hands}'
+                    try:
+                        clientsocket.send(msg.encode('ascii'))
+                    except BrokenPipeError:
+                        clientsocket.close()
+                        print("BrokenPipeError occurred, client disconnected prematurely.")
+
                         
                 else:
                     hand_landmarks = results.multi_hand_landmarks[0]
-
+                    multiple_hands = 0
                     # Find the bounding box coordinates
                     lm_list = []
                     for id, lm in enumerate(hand_landmarks.landmark):
@@ -78,7 +95,7 @@ while True:
                     print(f'Hand center: x={center_x}, y={center_y}')
 
                     # send hand positions via server.
-                    msg = f'{center_x},{center_y}'
+                    msg = f'{center_x},{center_y}{multiple_hands}'
                     try:
                         clientsocket.send(msg.encode('ascii'))
                     except BrokenPipeError:

@@ -30,9 +30,14 @@ String jaden = "Lorem Ipsum is simply dummy text of the printing and typesetting
 TextTitle t1;
 TextTitle t2;
 
-//All the preview images;
+//Preview images.
 PImage img1;
 PImage img2;
+
+//Hand Images.
+PShape hand1;
+PShape hand2;
+PShape hand3;
 
 //All the window objects.
 Window w1;
@@ -67,6 +72,11 @@ void setup(){
   img1 = loadImage("images/Jaden.png");
   img2 = loadImage("images/Lara.png");
 
+  //Load hand shapes.
+  hand1 = loadShape("images/Hand1.svg");
+  hand2 = loadShape("images/Hand2.svg");
+  hand3 = loadShape("images/Hand3.svg");
+
   //Create all the objects.
   w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
   t2 = new TextTitle(width/3,height/4,jaden,30);
@@ -84,10 +94,13 @@ void setup(){
   c = new Client(this, "localhost", 9999);
   
   //Default mouse
-  myMouseX = 0;
-  myMouseY = 0;
+  myMouseX = -500;
+  myMouseY = -500;
 }
 
+// Are there multiple hands on screen.
+int multipleHands = 0;
+int count = 0;
 
 void draw(){
   
@@ -104,6 +117,7 @@ void draw(){
     
     float x = float(xy[0]);
     float y = float(xy[1]);
+    multipleHands = int(xy[2]);
     
     //Scaline factor
     
@@ -112,6 +126,25 @@ void draw(){
     println(myMouseX);
     myMouseY = int(map(int(y),0,480,0,screenY));
   }
+
+  //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
+
+  if(count<30){
+    shape(hand1,0,0);
+    count++;
+  }else if(count>=30 && count<60){
+    shape(hand2,0,0);
+    count++;
+  }else if(count>=60 && count<90){
+    shape(hand3,0,0);
+    count++;
+  }else{
+    count = 0;
+  }
+
+ 
+
+  
 
   //UI
   w1.draw();
@@ -122,6 +155,7 @@ void draw(){
   t2.draw();
 
   fill(255,0,0);
+  noStroke();
   ellipse(myMouseX,myMouseY,200,200);
 
   
