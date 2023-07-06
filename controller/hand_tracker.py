@@ -95,7 +95,7 @@ while True:
                     print(f'Hand center: x={center_x}, y={center_y}')
 
                     # send hand positions via server.
-                    msg = f'{center_x},{center_y}{multiple_hands}'
+                    msg = f'{center_x},{center_y},{multiple_hands}'
                     try:
                         clientsocket.send(msg.encode('ascii'))
                     except BrokenPipeError:
