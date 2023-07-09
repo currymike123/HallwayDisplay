@@ -97,8 +97,6 @@ while True:
                         clientsocket.close()
                         print("BrokenPipeError occurred, client disconnected prematurely.")
                         
-                    
-
             #cv2.imshow('MediaPipe Hands', image)
             if cv2.waitKey(5) & 0xFF == 27:
                 break
