@@ -3,16 +3,11 @@ import mediapipe as mp
 import socket
 import numpy as np
 
-
-
 # create a socket object
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-
 # get local machine name
 host = 'localhost'
-
-
 port = 9999
 
 # bind to the port
@@ -29,7 +24,7 @@ center_x = 0
 center_y = 0
 
 while True:
-# establish a connection
+    # establish a connection
     clientsocket, addr = serversocket.accept()
 
     print("Got a connection from %s" % str(addr))

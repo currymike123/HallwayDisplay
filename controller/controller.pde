@@ -142,10 +142,6 @@ void draw(){
     count = 0;
   }
 
- 
-
-  
-
   //UI
   w1.draw();
   w2.draw();
@@ -156,9 +152,7 @@ void draw(){
 
   fill(255,0,0);
   noStroke();
-  ellipse(myMouseX,myMouseY,200,200);
-
-  
+  ellipse(myMouseX,myMouseY,200,200); 
 }
 
 float detail = 0.4;
