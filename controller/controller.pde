@@ -23,10 +23,12 @@ String windowName = "Jaden";
 String windowName2 = "Lara";
 
 //All text strings.
+String findHand = "Hold one hand up. .  . Place the other hand behind your back. . . Keep only one hand in the frame. . .";
 String title = "Select a Project to Launch . . . ";
 String jaden = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
 
 //All text objects.
+TextTitle handText;
 TextTitle t1;
 TextTitle t2;
 
@@ -35,6 +37,7 @@ PImage img1;
 PImage img2;
 
 //Hand Images.
+PShape hand;
 PShape hand1;
 PShape hand2;
 PShape hand3;
@@ -65,19 +68,20 @@ public void settings() {
 }
 
 void setup(){
-  //Set the cursor to a hand.
-  cursor(HAND);
-
+  
   //Load all the images.
   img1 = loadImage("images/Jaden.png");
   img2 = loadImage("images/Lara.png");
 
   //Load hand shapes.
+  hand = loadShape("images/Hand.svg");
   hand1 = loadShape("images/Hand1.svg");
   hand2 = loadShape("images/Hand2.svg");
   hand3 = loadShape("images/Hand3.svg");
 
   //Create all the objects.
+  handText = new TextTitle(width/18,height-400,findHand,80);
+
   w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
   t2 = new TextTitle(width/3,height/4,jaden,30);
   w2 = new Window(width/4,height/2,300,300,img2,windowName2,path2);
@@ -103,10 +107,10 @@ int multipleHands = 0;
 int count = 0;
 
 void draw(){
-  
 
   //Draw the image to the screen.
   image(bg,0,0);
+  
 
   //Get the data from the server.
   if (c.available() > 0) {
@@ -118,41 +122,54 @@ void draw(){
     float x = float(xy[0]);
     float y = float(xy[1]);
     multipleHands = int(xy[2]);
-    
+    print(multipleHands);
     //Scaline factor
     
     //Set the mouse position to the data from the server.
     myMouseX = int(map(int(x),0,640,0,screenX));
-    println(myMouseX);
     myMouseY = int(map(int(y),0,480,0,screenY));
   }
 
+  fill(255,50);
+  stroke(0);
+  strokeWeight(2);
+  rectMode(CENTER);
+  rect(width/2,height/2,1000,1000);
+  rectMode(CORNER);
+  textSize(110);
+  fill(180);
+  text("Computational Media",width/2-500,400);
+  
   //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
-
-  if(count<30){
-    shape(hand1,0,0);
+  shapeMode(CENTER);
+  if(count<60){
+    shape(hand1,width/2,height/2);
     count++;
-  }else if(count>=30 && count<60){
-    shape(hand2,0,0);
+  }else if(count>=60 && count<120){
+    shape(hand2,width/2,height/2);
     count++;
-  }else if(count>=60 && count<90){
-    shape(hand3,0,0);
+  }else if(count>=120 && count<180){
+    shape(hand3,width/2,height/2);
     count++;
   }else{
     count = 0;
   }
-
-  //UI
-  w1.draw();
-  w2.draw();
-  w1.launch();
-  w2.launch();
-  t1.draw();
-  t2.draw();
+  fill(180);
+  handText.draw();
+  
+  if(frameCount>1000  && multipleHands == 0){
+    //UI
+    w1.draw();
+    w2.draw();
+    w1.launch();
+    w2.launch();
+    t1.draw();
+    t2.draw();
+  }
 
   fill(255,0,0);
   noStroke();
-  ellipse(myMouseX,myMouseY,200,200); 
+  shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
 }
 
 float detail = 0.4;
