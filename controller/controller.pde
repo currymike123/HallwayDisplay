@@ -130,32 +130,7 @@ void draw(){
     myMouseY = int(map(int(y),0,480,0,screenY));
   }
 
-  fill(255,50);
-  stroke(0);
-  strokeWeight(2);
-  rectMode(CENTER);
-  rect(width/2,height/2,1000,1000);
-  rectMode(CORNER);
-  textSize(110);
-  fill(180);
-  text("Computational Media",width/2-500,400);
-  
-  //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
-  shapeMode(CENTER);
-  if(count<60){
-    shape(hand1,width/2,height/2);
-    count++;
-  }else if(count>=60 && count<120){
-    shape(hand2,width/2,height/2);
-    count++;
-  }else if(count>=120 && count<180){
-    shape(hand3,width/2,height/2);
-    count++;
-  }else{
-    count = 0;
-  }
-  fill(180);
-  handText.draw();
+
   
   if(frameCount>1000  && multipleHands == 0){
     //UI
@@ -165,7 +140,36 @@ void draw(){
     w2.launch();
     t1.draw();
     t2.draw();
+  }else{
+      fill(255,50);
+    stroke(0);
+    strokeWeight(2);
+    rectMode(CENTER);
+    rect(width/2,height/2,1000,1000);
+    rectMode(CORNER);
+    textSize(110);
+    fill(180);
+    text("Computational Media",width/2-500,400);
+    
+    //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
+    shapeMode(CENTER);
+    if(count<60){
+      shape(hand1,width/2,height/2);
+      count++;
+    }else if(count>=60 && count<120){
+      shape(hand2,width/2,height/2);
+      count++;
+    }else if(count>=120 && count<180){
+      shape(hand3,width/2,height/2);
+      count++;
+    }else{
+      count = 0;
+    }
+
+    fill(180);
+    handText.draw();
   }
+
 
   fill(255,0,0);
   noStroke();
