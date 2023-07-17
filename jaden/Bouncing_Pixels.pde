@@ -1,4 +1,13 @@
 
+import processing.net.*;
+
+//Global Variables
+
+//Variables for the server.
+Client c;
+String data;
+
+
 //Array of pixel objects
 square[] arrsquare;
  
@@ -18,6 +27,9 @@ void setup(){
   for(int i = 0; i < arrsquare.length; i++){
     arrsquare[i] = new square();
   }
+  
+  //Connect to the server for the mouse position.
+  c = new Client(this, "localhost", 9999);
 }
 
 void draw(){
@@ -55,6 +67,23 @@ void draw(){
      arrsquare[i].display();
    }
    checktime();
+   
+     //Get the data from the server.
+  if (c.available() > 0) {
+    // read the data from the client
+    data = c.readString();
+    
+    String[] xy = split(data, ',');
+    
+    float x = float(xy[0]);
+    float y = float(xy[1]);
+    print(x,y);
+    ellipse(x,y,50,50);
+    
+    //Set the mouse position to the data from the server.
+    //myMouseX = int(map(int(x),0,640,0,screenX));
+    //myMouseY = int(map(int(y),0,480,0,screenY));
+  }
 }
 
 
