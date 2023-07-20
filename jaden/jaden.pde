@@ -42,7 +42,7 @@ void draw(){
   if (c.available() > 0) {
     // read the data from the client
     data = c.readString();
-    
+    //Split the msg.
     String[] xy = split(data, ',');
     
     float x = float(xy[0]);
