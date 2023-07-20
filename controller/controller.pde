@@ -62,8 +62,8 @@ int myMouseY;
 
 public void settings() {
 
-  screenX = displayWidth-100;
-  screenY = displayHeight-100;
+  screenX = displayWidth;
+  screenY = displayHeight;
   size(screenX,screenY); // Set the desired width and height
 }
 
@@ -141,7 +141,7 @@ void draw(){
     t1.draw();
     t2.draw();
   }else{
-      fill(255,50);
+    fill(10,180,200,50);
     stroke(0);
     strokeWeight(2);
     rectMode(CENTER);
