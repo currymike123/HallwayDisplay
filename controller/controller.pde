@@ -107,7 +107,7 @@ int multipleHands = 0;
 int count = 0;
 
 void draw(){
-
+  
   //Draw the image to the screen.
   image(bg,0,0);
   
@@ -141,7 +141,7 @@ void draw(){
     t1.draw();
     t2.draw();
   }else{
-    fill(10,180,200,50);
+    fill(10,100,150,50);
     stroke(0);
     strokeWeight(2);
     rectMode(CENTER);
@@ -185,7 +185,9 @@ void noiseBackground(){
   bg.loadPixels();
 
   float xoff = 0.0; // Start xoff at 0
-  detail = detail + random(-0.01,0.01);
+  float manip = map(map(myMouseX,0,width,width/2,width),width/2,width,-.1,1);
+  
+  detail = detail + random(-.1,.1);
   noiseDetail(5, detail);
   
   // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
@@ -200,8 +202,10 @@ void noiseBackground(){
 
       bright = map(bright,0,255,40,100);
       
-      // Set each pixel onscreen to a grayscale value
-      bg.pixels[x+y*width] = color(bright);
+     
+        // Set each pixel onscreen to a grayscale value
+        bg.pixels[x+y*width] = color(bright);
+      
     }
   }
   
