@@ -14,6 +14,7 @@ square[] arrsquare;
 //Number variable.
 int num = 15;
 
+
 void setup(){
   size(800,700);
   background(40);
@@ -32,11 +33,31 @@ void setup(){
   c = new Client(this, "localhost", 9999);
 }
 
+float myMouseY = -100;
+
+float myMouseX = -100;
+
 void draw(){
+  
+  if (c.available() > 0) {
+    // read the data from the client
+    data = c.readString();
+    //Split the msg.
+    String[] xy = split(data, ',');
+    
+    float x = float(xy[0]);
+    float y  = float(xy[1]);
+    
+    
+    //Set the mouse position to the data from the server.
+    myMouseX = int(map(int(x),0,640,0,displayWidth));
+    myMouseY = int(map(int(y),0,480,0,displayHeight));
+  }
+    
 //Array of pixels -- Update, Collide, Display
   for(int i = 0; i < arrsquare.length; i++){
     
-    arrsquare[i].moveAwayFromCursor(mouseX, mouseY);
+    arrsquare[i].moveAwayFromCursor(myMouseX, myMouseY);
     
 //Update pixel location
     arrsquare[i].update();
@@ -44,17 +65,17 @@ void draw(){
 //Check if they have collided with the walls
     arrsquare[i].collide();
     
-    if(mousePressed){
-       float distance = dist(arrsquare[i].location.x, arrsquare[i].location.y, mouseX, mouseY); 
-        if(distance < arrsquare[i].size){
-          arrsquare[i].rgb = color(255,255,255,30);
-        }
-    }
+    
+     float distance = dist(arrsquare[i].location.x, arrsquare[i].location.y, myMouseX, myMouseY); 
+      if(distance < arrsquare[i].size){
+        arrsquare[i].rgb = color(255,255,255,30);
+      }
+  
     
 //Check if the current pixel is touching all the other pixels
     for(int n = 0; n < arrsquare.length; n++){
 //Calculate the distance between pixels
-        float distance = dist(arrsquare[i].location.x, arrsquare[i].location.y, arrsquare[n].location.x,arrsquare[n].location.y); 
+        distance = dist(arrsquare[i].location.x, arrsquare[i].location.y, arrsquare[n].location.x,arrsquare[n].location.y); 
         
 //If distance from one pixel to every other pixel is < the the pixel's radius, they are touching
         if(i != n && (distance < arrsquare[i].size/2 + arrsquare[n].size/2)){
@@ -67,23 +88,9 @@ void draw(){
      arrsquare[i].display();
    }
    checktime();
-   
-     //Get the data from the server.
-  if (c.available() > 0) {
-    // read the data from the client
-    data = c.readString();
-    
-    String[] xy = split(data, ',');
-    
-    float x = float(xy[0]);
-    float y = float(xy[1]);
-    print(x,y);
-    ellipse(x,y,50,50);
-    
-    //Set the mouse position to the data from the server.
-    //myMouseX = int(map(int(x),0,640,0,screenX));
-    //myMouseY = int(map(int(y),0,480,0,screenY));
-  }
+   fill(255,5);
+   noStroke();
+   ellipse(myMouseX,myMouseY,50,50);
 }
 
 
