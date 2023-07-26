@@ -57,6 +57,9 @@ int screenY;
 int myMouseX;
 int myMouseY;
 
+//Custom Font
+PFont myFont;
+
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -78,6 +81,11 @@ void setup(){
   hand1 = loadShape("images/Hand1.svg");
   hand2 = loadShape("images/Hand2.svg");
   hand3 = loadShape("images/Hand3.svg");
+
+  //Load font.
+  myFont = createFont("SyneMono-Regular.ttf",100);
+  textFont(myFont);
+
 
   //Create all the objects.
   handText = new TextTitle(width/18,height-400,findHand,80);
@@ -141,26 +149,28 @@ void draw(){
     t1.draw();
     t2.draw();
   }else{
-    fill(10,100,150,50);
-    stroke(0);
-    strokeWeight(2);
+    fill(80,170,220,30);
+    noStroke();
     rectMode(CENTER);
-    rect(width/2,height/2,1000,1000);
+    rect(width/2,height/2,1300,1500);
     rectMode(CORNER);
-    textSize(110);
-    fill(180);
-    text("Computational Media",width/2-500,400);
+    textSize(170);
+    fill(160);
+    text("Computational",width/2-605,495);
+    text("Media",width/2+140,640);
+    // text("Media",width/2-605,1710);
     
     //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
     shapeMode(CENTER);
     if(count<60){
-      shape(hand1,width/2,height/2);
+      
+      shape(hand1,width/2-170,height/2-20);
       count++;
     }else if(count>=60 && count<120){
-      shape(hand2,width/2,height/2);
+      shape(hand2,width/2-170,height/2-20);
       count++;
     }else if(count>=120 && count<180){
-      shape(hand3,width/2,height/2);
+      shape(hand3,width/2-170,height/2-20);
       count++;
     }else{
       count = 0;
@@ -200,7 +210,7 @@ void noiseBackground(){
       // Calculate noise and scale by 255
       float bright = (noise(xoff, yoff) * 255) / 2;
 
-      bright = map(bright,0,255,40,100);
+      bright = map(bright,0,255,60,150);
       
      
         // Set each pixel onscreen to a grayscale value
