@@ -23,12 +23,14 @@ String windowName = "Jaden";
 String windowName2 = "Lara";
 
 //All text strings.
-String findHand = "Hold one hand up. .  . Place the other hand behind your back. . . Keep only one hand in the frame. . .";
+String findHand = "Hold one hand up. .  . The other hand behind your back. . . Keep only one hand in the frame. . ."; 
+String handSearch = "Searching for hand . . .";
 String title = "Select a Project to Launch . . . ";
 String jaden = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
 
 //All text objects.
 TextTitle handText;
+TextTitle handSearching;
 TextTitle t1;
 TextTitle t2;
 
@@ -89,6 +91,7 @@ void setup(){
 
   //Create all the objects.
   handText = new TextTitle(width/18,height-400,findHand,80);
+  handSearching = new TextTitle(width/2-605,1480,handSearch,60);
 
   w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
   t2 = new TextTitle(width/3,height/4,jaden,30);
@@ -106,8 +109,8 @@ void setup(){
   c = new Client(this, "localhost", 9999);
   
   //Default mouse
-  myMouseX = -500;
-  myMouseY = -500;
+  myMouseX = width/2+300;
+  myMouseY = height/2;
 }
 
 // Are there multiple hands on screen.
@@ -158,31 +161,37 @@ void draw(){
     fill(160);
     text("Computational",width/2-605,495);
     text("Media",width/2+140,640);
+    textSize(50);
+    text("(1) Hold one hand up.",width/2-605,1620);
+    text("(2) The other behind your back.",width/2-605,1700);
+    text("(3) Keep only one hand in the frame.",width/2-605,1780);
+
+    shape(hand,width/2+300,height/2,hand.width/2,hand.height/2);
+    
     // text("Media",width/2-605,1710);
     
     //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
     shapeMode(CENTER);
     if(count<60){
       
-      shape(hand1,width/2-170,height/2-20);
+      shape(hand1,width/2-200,height/2-60);
       count++;
     }else if(count>=60 && count<120){
-      shape(hand2,width/2-170,height/2-20);
+      shape(hand2,width/2-200,height/2-60);
       count++;
     }else if(count>=120 && count<180){
-      shape(hand3,width/2-170,height/2-20);
+      shape(hand3,width/2-200,height/2-60);
       count++;
     }else{
       count = 0;
     }
 
-    fill(180);
-    handText.draw();
+    //fill(180);
+    //handText.draw();
+    handSearching.draw();
+    //print(handSearching.x);
   }
 
-
-  fill(255,0,0);
-  noStroke();
   shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
 }
 
@@ -259,7 +268,7 @@ class TextTitle{
   }
 
   if(currentIndex  == title.length() && frameCount % 128 == 0){
-    displayedText = " ";
+    displayedText = "";
     currentIndex = 0;
   }
   
