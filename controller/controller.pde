@@ -14,8 +14,8 @@ Client c;
 String data;
 
 //All the paths to the applications.
-String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
-String path2 = "/home/mike/Desktop/HallwayDisplay/Exports/Lara/linux-amd64/rain";
+String path = "./Exports/Jaden/linux-amd64/jaden";
+String path2 = "./Exports/Lara/linux-amd64/rain";
 
 //All the window names.
 
@@ -73,7 +73,7 @@ public void settings() {
 }
 
 void setup(){
-  
+
   //Load all the images.
   img1 = loadImage("images/Jaden.png");
   img2 = loadImage("images/Lara.png");
