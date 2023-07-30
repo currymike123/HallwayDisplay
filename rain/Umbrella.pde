@@ -21,11 +21,11 @@ class Umbrella{
   
   void update(){
     if(state == 0){
-      initLoc.x = width-100; 
-      initLoc.y = height-100; 
+      initLoc.x = myMouseX; 
+      initLoc.y = myMouseY; 
     } else if(state == 1){
-      initLoc.x = mouseX; 
-      initLoc.y = mouseY;   
+      initLoc.x = myMouseX; 
+      initLoc.y = myMouseY;   
       up = true; 
     }  
   }

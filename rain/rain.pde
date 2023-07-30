@@ -1,4 +1,13 @@
 import java.util.Iterator;
+
+import processing.net.*;
+
+//Global Variables
+
+//Variables for the server.
+Client c;
+String data;
+
 ArrayList<Drop> dList; 
 Umbrella u; 
 Sun s; 
@@ -10,9 +19,33 @@ void setup(){
   s = new Sun(new PVector(width, height), new PVector(0, 0));
   u = new Umbrella(new PVector(width/2, height/2), s.theta); 
   startTime = millis();
+  
+  //Connect to the server for the mouse position.
+  c = new Client(this, "localhost", 9999);
 }
 
+float myMouseY = width-100;
+
+float myMouseX = height-100;
+
 void draw(){
+  
+  if (c.available() > 0) {
+    // read the data from the client
+    data = c.readString();
+    //Split the msg.
+    String[] xy = split(data, ',');
+    
+    float x = float(xy[0]);
+    float y  = float(xy[1]);
+    
+    
+    //Set the mouse position to the data from the server.
+    myMouseX = int(map(int(x),0,640,0,width));
+    myMouseY = int(map(int(y),0,480,0,height));
+    println(myMouseX);
+  }
+  
   background(#EDFFFF);  
   s.run(); 
   u.run(); 
@@ -38,10 +71,7 @@ void draw(){
       }
    }
    
-   if (millis() - startTime >= 30000) {
-    // Exit the program
-    exit();
-  }
+ checktime();
 }
 
 void mousePressed(){
@@ -51,4 +81,13 @@ void mousePressed(){
     u.state--; 
     u.up = false; 
   }
+}
+
+void checktime(){
+   
+  if(int(frameCount/frameRate) == 30){
+   
+    exit();
+  }
+  
 }

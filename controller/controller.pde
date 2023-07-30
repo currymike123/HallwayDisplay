@@ -16,15 +16,17 @@ String data;
 //All the paths to the applications.
 String path = "./Exports/Jaden/linux-amd64/jaden";
 String path2 = "./Exports/Lara/linux-amd64/rain";
+String path3 = "./Exports/Kevin/linux-amd64/Santorelli_Project";
 
 //All the window names.
 
 String windowName = "Jaden";
 String windowName2 = "Lara";
+String windowName3 = "Kevin";
 
 //All text strings.
 String findHand = "Hold one hand up. .  . The other hand behind your back. . . Keep only one hand in the frame. . ."; 
-String handSearch = "Searching for hand . . .";
+String handSearch = "Searching for a hand (just one). . .";
 String title = "Select a Project to Launch . . . ";
 String jaden = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
 
@@ -37,6 +39,7 @@ TextTitle t2;
 //Preview images.
 PImage img1;
 PImage img2;
+PImage img3;
 
 //Hand Images.
 PShape hand;
@@ -47,6 +50,7 @@ PShape hand3;
 //All the window objects.
 Window w1;
 Window w2;
+Window w3;
 
 //Background Image.
 PGraphics bg;
@@ -77,6 +81,7 @@ void setup(){
   //Load all the images.
   img1 = loadImage("images/Jaden.png");
   img2 = loadImage("images/Lara.png");
+  img3 = loadImage("images/Kevin.png");
 
   //Load hand shapes.
   hand = loadShape("images/Hand.svg");
@@ -93,10 +98,18 @@ void setup(){
   handText = new TextTitle(width/18,height-400,findHand,80);
   handSearching = new TextTitle(width/2-605,1480,handSearch,60);
 
+  //Title
+  t1 = new TextTitle(width/4,height/6,title,60);
+
+  //Jaden's Project
   w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
   t2 = new TextTitle(width/3,height/4,jaden,30);
-  w2 = new Window(width/4,height/2,300,300,img2,windowName2,path2);
-  t1 = new TextTitle(width/4,height/6,title,60);
+
+  //Lara's Project
+  w2 = new Window(width/4,height/4 + 400 ,300,300,img2,windowName2,path2);
+  
+  //Kevin's Project
+  w3 = new Window(width/4,height/4 + 800,300,300,img3,windowName3,path3);
 
   //Create the background image to be drawn to the screen.  Calculate it once and save it as an image. 
   bg = createGraphics(width,height);
@@ -145,14 +158,22 @@ void draw(){
   
   if(frameCount>1000  && multipleHands == 0){
     //UI
+
+    //Draw the windows.
     w1.draw();
     w2.draw();
+    w3.draw();
+
+    //Check to see if the apps should launch
     w1.launch();
     w2.launch();
+    w3.launch();
+
+    //Draw the text.
     t1.draw();
     t2.draw();
   }else{
-    fill(80,170,220,30);
+    fill(80,170,220,50);
     noStroke();
     rectMode(CENTER);
     rect(width/2,height/2,1300,1500);
@@ -166,7 +187,7 @@ void draw(){
     text("(2) The other behind your back.",width/2-605,1700);
     text("(3) Keep only one hand in the frame.",width/2-605,1780);
 
-    shape(hand,width/2+300,height/2,hand.width/2,hand.height/2);
+    shape(hand,width/2+350,height/2,hand.width/2,hand.height/2);
     
     // text("Media",width/2-605,1710);
     
