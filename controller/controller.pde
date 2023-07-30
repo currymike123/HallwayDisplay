@@ -20,21 +20,26 @@ String path3 = "./Exports/Kevin/linux-amd64/Santorelli_Project";
 
 //All the window names.
 
-String windowName = "Jaden";
-String windowName2 = "Lara";
-String windowName3 = "Kevin";
+String windowName = "Jaden Daniels";
+String windowName2 = "Lara Palombi";
+String windowName3 = "Kevin Santorelli";
 
 //All text strings.
 String findHand = "Hold one hand up. .  . The other hand behind your back. . . Keep only one hand in the frame. . ."; 
 String handSearch = "Searching for a hand (just one). . .";
 String title = "Select a Project to Launch . . . ";
-String jaden = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
+String jaden = "Jaden Daniels invites the user to create a sketch by moving rectangles around a screen and changing there color when your hand intersects a rectangle's path.";
+String lara = "Lara Palombi creates a rain simulation for the user to explore.  Move the umbrella around the screen to stay dry and watch the light change from day to night.";
+String kevin = "Kevin Santorelli built a project referencing early atari games such as Space Invaders.  Move the space ship and destory the alien invaders!";
 
 //All text objects.
 TextTitle handText;
 TextTitle handSearching;
 TextTitle t1;
 TextTitle t2;
+TextBox jadenText;
+TextBox laraText;
+TextBox kevinText;
 
 //Preview images.
 PImage img1;
@@ -52,7 +57,7 @@ Window w1;
 Window w2;
 Window w3;
 
-//Background Image.
+//Background Image. 
 PGraphics bg;
 
 //Screen Size
@@ -103,13 +108,16 @@ void setup(){
 
   //Jaden's Project
   w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
-  t2 = new TextTitle(width/3,height/4,jaden,30);
+  jadenText = new TextBox(jaden,width/3,height/4,800,w1.h,30);
+  //t2 = new TextTitle(width/3,height/4,jaden,30);
 
   //Lara's Project
   w2 = new Window(width/4,height/4 + 400 ,300,300,img2,windowName2,path2);
+  laraText = new TextBox(lara,width/3,height/4 + 400,800,w2.h,30);
   
   //Kevin's Project
   w3 = new Window(width/4,height/4 + 800,300,300,img3,windowName3,path3);
+  kevinText = new TextBox(kevin,width/3,height/4 + 800,800,w3.h,30);
 
   //Create the background image to be drawn to the screen.  Calculate it once and save it as an image. 
   bg = createGraphics(width,height);
@@ -171,7 +179,10 @@ void draw(){
 
     //Draw the text.
     t1.draw();
-    t2.draw();
+    jadenText.draw();
+    laraText.draw();
+    kevinText.draw();
+    //t2.draw();
   }else{
     fill(80,170,220,50);
     noStroke();
@@ -216,6 +227,10 @@ void draw(){
   shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Function fro the background noise..
 float detail = 0.4;
 float increment = 0.02;
 
@@ -420,3 +435,51 @@ class WindowCounter {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Text Box class
+class TextBox {
+  String text;
+  float x, y, width, height;
+  int fontSize;
+  
+  TextBox(String text, float x, float y, float width, float height, int fontSize) {
+    this.text = text;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.fontSize = fontSize;
+  }
+  
+  void draw() {
+    pushStyle();
+    textAlign(LEFT, TOP);
+    textSize(fontSize);
+    fill(200);
+    
+    // Split the text into individual words
+    String[] words = text.split(" ");
+    String currentLine = "";
+    float lineHeight = textAscent() + textDescent();
+    float currentY = y;
+    
+    for (String word : words) {
+      // Check if the current line + the current word exceeds the width
+      if (textWidth(currentLine + word) > width) {
+        // Draw the current line and move to the next line
+        text(currentLine, x, currentY);
+        currentY += lineHeight;
+        currentLine = word + " ";
+      } else {
+        // Add the word to the current line
+        currentLine += word + " ";
+      }
+    }
+    
+    // Draw the last line of text
+    text(currentLine, x, currentY);
+    popStyle();
+  }
+}
+
+
