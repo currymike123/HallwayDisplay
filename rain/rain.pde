@@ -14,7 +14,7 @@ Sun s;
 float fade; 
 int startTime;
 void setup(){
-  size(1440, 740); 
+  size(1440, 740, P2D); 
   dList = new ArrayList<Drop>(); 
   s = new Sun(new PVector(width, height), new PVector(0, 0));
   u = new Umbrella(new PVector(width/2, height/2), s.theta); 

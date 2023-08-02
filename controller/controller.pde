@@ -78,7 +78,7 @@ public void settings() {
 
   screenX = displayWidth;
   screenY = displayHeight;
-  size(screenX,screenY); // Set the desired width and height
+  size(screenX,screenY, P2D); // Set the desired width and height
 }
 
 void setup(){
