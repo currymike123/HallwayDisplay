@@ -227,6 +227,11 @@ void draw(){
 
   shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
   
+  if(w1.counter.checkCursorOnWindow()){
+    image(bg,0,0);
+    
+    delay(30000);
+  }
 }
 
 
