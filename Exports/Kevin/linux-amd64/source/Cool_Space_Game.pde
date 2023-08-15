@@ -130,7 +130,7 @@ void draw() {
 
 void checktime(){
    
-  if(int(frameCount/frameRate) == 30){
+  if(millis() > 30000){
    
     exit();
   }

@@ -14,9 +14,9 @@ Client c;
 String data;
 
 //All the paths to the applications.
-String path = "./Exports/Jaden/linux-amd64/jaden";
-String path2 = "./Exports/Lara/linux-amd64/rain";
-String path3 = "./Exports/Kevin/linux-amd64/Santorelli_Project";
+String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
+String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
+String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
 
 //All the window names.
 
@@ -164,18 +164,19 @@ void draw(){
 
 
   
-  if(frameCount>1000  && multipleHands == 0){
+  if(frameCount>600  && multipleHands == 0){
     //UI
+    
+    //Check to see if the apps should launch
+    w1.launch();
+    w2.launch();
+    w3.launch();
 
     //Draw the windows.
     w1.draw();
     w2.draw();
     w3.draw();
 
-    //Check to see if the apps should launch
-    w1.launch();
-    w2.launch();
-    w3.launch();
 
     //Draw the text.
     t1.draw();
@@ -225,6 +226,7 @@ void draw(){
   }
 
   shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
+  
 }
 
 
@@ -378,11 +380,9 @@ class Window{
   void launch(){
 
     if(counter.checkCursorOnWindow()){
-        println("Opening");
         exec(path);
         delay(30000);
-        mouseX = width/2;
-        mouseY = height/2;
+       
     }
   }
 
@@ -395,7 +395,7 @@ class WindowCounter {
   int x,y,w,h;
   boolean isCursorOnWindow;
   int cursorEnterTime;
-  int actionDelay = 3000; // 3 seconds
+  int actionDelay = 4000; // 3 seconds
 
   WindowCounter(int x, int y, int w, int h) {
     this.x = x;
@@ -481,5 +481,3 @@ class TextBox {
     popStyle();
   }
 }
-
-

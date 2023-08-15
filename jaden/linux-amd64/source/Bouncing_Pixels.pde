@@ -16,7 +16,7 @@ int num = 15;
 
 
 void setup(){
-  size(800,700);
+  size(800,700,P2D);
   background(40);
   smooth();
   rectMode(CENTER);
@@ -50,8 +50,8 @@ void draw(){
     
     
     //Set the mouse position to the data from the server.
-    myMouseX = int(map(int(x),0,640,0,displayWidth));
-    myMouseY = int(map(int(y),0,480,0,displayHeight));
+    myMouseX = int(map(int(x),0,640,0,width));
+    myMouseY = int(map(int(y),0,480,0,height));
   }
     
 //Array of pixels -- Update, Collide, Display
@@ -90,13 +90,14 @@ void draw(){
    checktime();
    fill(255,5);
    noStroke();
+   println(myMouseX);
    ellipse(myMouseX,myMouseY,50,50);
 }
 
 
 void checktime(){
-   println(frameCount/frameRate);
-  if(int(frameCount/frameRate) == 30){
+   
+  if(millis() > 30000){
    
     exit();
   }

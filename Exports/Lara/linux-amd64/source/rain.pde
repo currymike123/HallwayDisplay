@@ -49,10 +49,12 @@ void draw(){
   background(#EDFFFF);  
   s.run(); 
   u.run(); 
-  dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(1, 2)), 50, false));
-  dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(3, 4)), 100, true));
-  dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(4, 5)), 200, true));
-  dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(6, 7)), 255, true));
+  if(frameCount % 5 == 0){
+    dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(1, 2)), 50, false));
+    dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(3, 4)), 100, true));
+    dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(4, 5)), 200, true));
+    dList.add(new Drop(new PVector(random(-10, width), -40), new PVector(0, random(6, 7)), 255, true));
+  }
   Iterator<Drop> it = dList.iterator();
    while(it.hasNext()){
       Drop d = it.next(); 
@@ -85,7 +87,7 @@ void mousePressed(){
 
 void checktime(){
    
-  if(int(frameCount/frameRate) == 30){
+  if(millis() > 30000){
    
     exit();
   }
