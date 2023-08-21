@@ -68,7 +68,7 @@ class ClientHandler(threading.Thread):
                     print("Multiple hands detected, please keep one hand behind.")
 
                     # Flag that there is more than one hand.
-                    self.multiple_hands = 1
+                    self.multiple_hands = 2
                 
                 #Else there is only one hand detected.
                 else:
@@ -76,7 +76,7 @@ class ClientHandler(threading.Thread):
                     hand_landmarks = results.multi_hand_landmarks[0]
 
                     #Flag only one hand is detected.
-                    self.multiple_hands = 0
+                    self.multiple_hands = 1
 
                     # Find the bounding box coordinates
                     lm_list = []
@@ -109,7 +109,20 @@ class ClientHandler(threading.Thread):
                 except BrokenPipeError:
                     self.clientsocket.close()
                     print("BrokenPipeError occurred, client disconnected prematurely.")
+            else:
+                print("No Hands Detected")
 
+                #Flag only one hand is detected.
+                self.multiple_hands = 0
+
+                # send hand positions via server.
+                msg = f'{self.center_x},{self.center_y},{self.multiple_hands}\n'
+                try:
+                    self.clientsocket.send(msg.encode('ascii'))
+                except BrokenPipeError:
+                    self.clientsocket.close()
+                    print("BrokenPipeError occurred, client disconnected prematurely.")
+                
 # Infinte loop to listen for server connections
 while True:
     # establish a connection

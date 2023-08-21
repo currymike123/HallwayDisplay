@@ -12,7 +12,7 @@ String data;
 square[] arrsquare;
  
 //Number variable.
-int num = 15;
+int num = 40;
 
 
 void setup(){

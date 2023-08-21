@@ -17,12 +17,16 @@ String data;
 String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
 String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
 String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
+String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
+String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
 
 //All the window names.
 
 String windowName = "Jaden Daniels";
 String windowName2 = "Lara Palombi";
 String windowName3 = "Kevin Santorelli";
+String windowName4 = "Ethan McDermott";
+String windowName5 = "Michelle Hasbun";
 
 //All text strings.
 String findHand = "Hold one hand up. .  . The other hand behind your back. . . Keep only one hand in the frame. . ."; 
@@ -31,6 +35,8 @@ String title = "Select a Project to Launch . . . ";
 String jaden = "Jaden Daniels invites the user to create a sketch by moving rectangles around a screen and changing there color when your hand intersects a rectangle's path.";
 String lara = "Lara Palombi creates a rain simulation for the user to explore.  Move the umbrella around the screen to stay dry and watch the light change from day to night.";
 String kevin = "Kevin Santorelli built a project referencing early atari games such as Space Invaders.  Move the space ship and destory the alien invaders!";
+String ethan = "Ethan McDermott creates a rotating world of gradient strands.  Move your hand left to right to increase and decrease the speed of the rotation.";
+String michelle = "Michelle Hasbun designs a traditional Pong game infused with psychedelic elemnts.  Use your hand to move the paddle.";
 
 //All text objects.
 TextTitle handText;
@@ -40,11 +46,15 @@ TextTitle t2;
 TextBox jadenText;
 TextBox laraText;
 TextBox kevinText;
+TextBox ethanText;
+TextBox michelleText;
 
 //Preview images.
 PImage img1;
 PImage img2;
 PImage img3;
+PImage img4;
+PImage img5;
 
 //Hand Images.
 PShape hand;
@@ -56,6 +66,8 @@ PShape hand3;
 Window w1;
 Window w2;
 Window w3;
+Window w4;
+Window w5;
 
 //Background Image. 
 PGraphics bg;
@@ -87,6 +99,8 @@ void setup(){
   img1 = loadImage("images/Jaden.png");
   img2 = loadImage("images/Lara.png");
   img3 = loadImage("images/Kevin.png");
+  img4 = loadImage("images/Ethan.png");
+  img5 = loadImage("images/Michelle.png");
 
   //Load hand shapes.
   hand = loadShape("images/Hand.svg");
@@ -104,20 +118,30 @@ void setup(){
   handSearching = new TextTitle(width/2-605,1480,handSearch,60);
 
   //Title
-  t1 = new TextTitle(width/4,height/6,title,60);
+  t1 = new TextTitle(width/5,height/6,title,60);
 
   //Jaden's Project
-  w1 = new Window(width/4,height/4,300,300,img1,windowName,path);
-  jadenText = new TextBox(jaden,width/3,height/4,800,w1.h,30);
+  w1 = new Window(width/5,height/4,300,300,img1,windowName,path);
+  jadenText = new TextBox(jaden,width/3.5,height/4,800,w1.h,30);
   //t2 = new TextTitle(width/3,height/4,jaden,30);
 
   //Lara's Project
-  w2 = new Window(width/4,height/4 + 400 ,300,300,img2,windowName2,path2);
-  laraText = new TextBox(lara,width/3,height/4 + 400,800,w2.h,30);
+  w2 = new Window(width/5,height/4 + 400 ,300,300,img2,windowName2,path2);
+  laraText = new TextBox(lara,width/3.5,height/4 + 400,800,w2.h,30);
   
   //Kevin's Project
-  w3 = new Window(width/4,height/4 + 800,300,300,img3,windowName3,path3);
-  kevinText = new TextBox(kevin,width/3,height/4 + 800,800,w3.h,30);
+  w3 = new Window(width/5,height/4 + 800,300,300,img3,windowName3,path3);
+  kevinText = new TextBox(kevin,width/3.5,height/4 + 800,800,w3.h,30);
+  
+  //Ethan's Project
+  w4 = new Window(int(width/1.85),height/4,300,300,img4,windowName4,path4);
+  ethanText = new TextBox(ethan,width/1.6,height/4,800,w4.h,30);
+  
+  //Michelle's Project
+  w5 = new Window(int(width/1.85),height/4 + 400,300,300,img5,windowName5,path5);
+  michelleText = new TextBox(michelle,width/1.6,height/4+400,800,w5.h,30);
+ 
+ 
 
   //Create the background image to be drawn to the screen.  Calculate it once and save it as an image. 
   bg = createGraphics(width,height);
@@ -136,6 +160,7 @@ void setup(){
 
 // Are there multiple hands on screen.
 int multipleHands = 0;
+int returnCount = 0;
 int count = 0;
 
 void draw(){
@@ -164,27 +189,34 @@ void draw(){
 
 
   
-  if(frameCount>600  && multipleHands == 0){
+  if(frameCount>600  && multipleHands == 1){
     //UI
     
     //Check to see if the apps should launch
     w1.launch();
     w2.launch();
     w3.launch();
+    w4.launch();
+    w5.launch();
 
     //Draw the windows.
     w1.draw();
     w2.draw();
     w3.draw();
-
+    w4.draw();
+    w5.draw();
 
     //Draw the text.
     t1.draw();
     jadenText.draw();
     laraText.draw();
     kevinText.draw();
+    ethanText.draw();
+    michelleText.draw();
     //t2.draw();
-  }else{
+  }else if(multipleHands == 0){
+    returnCount++;
+  }else if(multipleHands == 0 && returnCount == 600){
     fill(80,170,220,50);
     noStroke();
     rectMode(CENTER);
