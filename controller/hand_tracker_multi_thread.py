@@ -99,9 +99,6 @@ class ClientHandler(threading.Thread):
                     # Calculate the center of the hand by finding the average of the minimum and maximum x and y coordinates
                     self.center_x, self.center_y = (x_min + x_max) // 2, (y_min + y_max) // 2
 
-                    # Print the center coordinates of the hand
-                    print(f'Hand center: x={self.center_x}, y={self.center_y}')
-
                 # send hand positions via server.
                 msg = f'{self.center_x},{self.center_y},{self.multiple_hands}\n'
                 try:
@@ -122,6 +119,9 @@ class ClientHandler(threading.Thread):
                 except BrokenPipeError:
                     self.clientsocket.close()
                     print("BrokenPipeError occurred, client disconnected prematurely.")
+            
+            # Print the center coordinates of the hand
+            print(f'Hand center: x={self.center_x}, y={self.center_y}, hands={self.multiple_hands}')
                 
 # Infinte loop to listen for server connections
 while True:

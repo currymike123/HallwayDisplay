@@ -14,11 +14,20 @@ Client c;
 String data;
 
 //All the paths to the applications.
-String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
-String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
-String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
-String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
-String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
+
+String baseDir = "./Exports/";
+
+String path  = baseDir + "Jaden/linux-amd64/jaden";
+String path2 = baseDir + "Lara/linux-amd64/rain";
+String path3 = baseDir + "Kevin/linux-amd64/Santorelli_Project";
+String path4 = baseDir + "Ethan/linux-amd64/Ethan";
+String path5 = baseDir + "Michelle/linux-amd64/Michelle";
+
+// String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
+// String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
+// String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
+// String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
+// String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
 
 //All the window names.
 
@@ -93,7 +102,18 @@ public void settings() {
   size(screenX,screenY, P2D); // Set the desired width and height
 }
 
+// Check how many hands are on the screen to set the UI.
+
+int currentState = -1;  // -1 for initial state
+int nextSetState = -1;  // Stores next state to set
+int delayTime = 8000;  // Delay time of 6 seconds in milliseconds
+int lastChangeTime;  // Time when the last state change happened
+int nextStateStartTime; // Time when the next state should be set
+
 void setup(){
+  //Set the times to delay the change of UI.
+  lastChangeTime = millis();
+  nextStateStartTime = millis();
 
   //Load all the images.
   img1 = loadImage("images/Jaden.png");
@@ -158,10 +178,8 @@ void setup(){
   myMouseY = height/2;
 }
 
-// Are there multiple hands on screen.
-int multipleHands = 0;
-int returnCount = 0;
-int count = 0;
+
+
 
 void draw(){
   
@@ -178,8 +196,9 @@ void draw(){
     
     float x = float(xy[0]);
     float y = float(xy[1]);
-    multipleHands = int(xy[2]);
-    print(multipleHands);
+    float test = float(xy[2]);
+    nextSetState = int(float(xy[2]));
+    println(nextSetState);
     //Scaline factor
     
     //Set the mouse position to the data from the server.
@@ -188,11 +207,91 @@ void draw(){
   }
 
 
+   // Check if it's time to change the state
+  if (millis() - lastChangeTime >= delayTime) {
+    // Only change the state if nextSetState has been the same for 6 seconds
+    if (nextSetState != -1 && millis() - nextStateStartTime >= delayTime) {
+      currentState = nextSetState;
+      lastChangeTime = millis();  // Update last change time
+      nextSetState = -1; // Reset next state
+      nextStateStartTime = millis(); // Reset next state start time
+    }
+  }
+
+    // Display UI based on the state
+  if (currentState == -1) {
+    handSearchUI();
+  } else if (currentState == 0) {
+    handSearchUI();
+  } else if (currentState == 1) {
+    projectUI();
+  } else if (currentState == 2) {
+    handSearchUI();
+  }
+
+
   
-  if(frameCount>600  && multipleHands == 1){
-    //UI
+  // if(frameCount>600  && currentState == 1){
+  //   //Project UI
+  //   projectUI();
     
-    //Check to see if the apps should launch
+  // }else if(multipleHands == 0 && returnCount == 600){
+  //   //Hand Search UI
+  //   handSearchUI();
+  // }
+
+  shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
+  
+  
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int count = 0;
+
+void handSearchUI(){
+  fill(80,170,220,50);
+      noStroke();
+      rectMode(CENTER);
+      rect(width/2,height/2,1300,1500);
+      rectMode(CORNER);
+      textSize(170);
+      fill(160);
+      text("Computational",width/2-605,495);
+      text("Media",width/2+140,640);
+      textSize(50);
+      text("(1) Hold one hand up.",width/2-605,1620);
+      text("(2) The other behind your back.",width/2-605,1700);
+      text("(3) Keep only one hand in the frame.",width/2-605,1780);
+
+      shape(hand,width/2+350,height/2,hand.width/2,hand.height/2);
+      
+      // text("Media",width/2-605,1710);
+      
+      //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
+      shapeMode(CENTER);
+      if(count<60){
+        
+        shape(hand1,width/2-200,height/2-60);
+        count++;
+      }else if(count>=60 && count<120){
+        shape(hand2,width/2-200,height/2-60);
+        count++;
+      }else if(count>=120 && count<180){
+        shape(hand3,width/2-200,height/2-60);
+        count++;
+      }else{
+        count = 0;
+      }
+
+      handSearching.draw();
+      
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void projectUI(){
+   //Check to see if the apps should launch
     w1.launch();
     w2.launch();
     w3.launch();
@@ -213,57 +312,7 @@ void draw(){
     kevinText.draw();
     ethanText.draw();
     michelleText.draw();
-    //t2.draw();
-  }else if(multipleHands == 0){
-    returnCount++;
-  }else if(multipleHands == 0 && returnCount == 600){
-    fill(80,170,220,50);
-    noStroke();
-    rectMode(CENTER);
-    rect(width/2,height/2,1300,1500);
-    rectMode(CORNER);
-    textSize(170);
-    fill(160);
-    text("Computational",width/2-605,495);
-    text("Media",width/2+140,640);
-    textSize(50);
-    text("(1) Hold one hand up.",width/2-605,1620);
-    text("(2) The other behind your back.",width/2-605,1700);
-    text("(3) Keep only one hand in the frame.",width/2-605,1780);
 
-    shape(hand,width/2+350,height/2,hand.width/2,hand.height/2);
-    
-    // text("Media",width/2-605,1710);
-    
-    //Check for hand control.  Hand detection is only seeing one hand.  It will take you through the sequence of putting your hand behind your back.
-    shapeMode(CENTER);
-    if(count<60){
-      
-      shape(hand1,width/2-200,height/2-60);
-      count++;
-    }else if(count>=60 && count<120){
-      shape(hand2,width/2-200,height/2-60);
-      count++;
-    }else if(count>=120 && count<180){
-      shape(hand3,width/2-200,height/2-60);
-      count++;
-    }else{
-      count = 0;
-    }
-
-    //fill(180);
-    //handText.draw();
-    handSearching.draw();
-    //print(handSearching.x);
-  }
-
-  shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
-  
-  if(w1.counter.checkCursorOnWindow()){
-    image(bg,0,0);
-    
-    delay(30000);
-  }
 }
 
 
@@ -419,6 +468,7 @@ class Window{
     if(counter.checkCursorOnWindow()){
         exec(path);
         delay(30000);
+        nextStateStartTime = millis();
        
     }
   }
