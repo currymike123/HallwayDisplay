@@ -15,19 +15,19 @@ String data;
 
 //All the paths to the applications.
 
-String baseDir = "./Exports/";
+//String baseDir = "./Exports/";
 
-String path  = baseDir + "Jaden/linux-amd64/jaden";
-String path2 = baseDir + "Lara/linux-amd64/rain";
-String path3 = baseDir + "Kevin/linux-amd64/Santorelli_Project";
-String path4 = baseDir + "Ethan/linux-amd64/Ethan";
-String path5 = baseDir + "Michelle/linux-amd64/Michelle";
+//String path  = baseDir + "Jaden/linux-amd64/jaden";
+//String path2 = baseDir + "Lara/linux-amd64/rain";
+//String path3 = baseDir + "Kevin/linux-amd64/Santorelli_Project";
+//String path4 = baseDir + "Ethan/linux-amd64/Ethan";
+//String path5 = baseDir + "Michelle/linux-amd64/Michelle";
 
-// String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
-// String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
-// String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
-// String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
-// String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
+ String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
+ String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
+ String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
+ String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
+ String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
 
 //All the window names.
 
@@ -229,19 +229,7 @@ void draw(){
     handSearchUI();
   }
 
-
-  
-  // if(frameCount>600  && currentState == 1){
-  //   //Project UI
-  //   projectUI();
-    
-  // }else if(multipleHands == 0 && returnCount == 600){
-  //   //Hand Search UI
-  //   handSearchUI();
-  // }
-
   shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
-  
   
 }
 
