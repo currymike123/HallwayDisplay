@@ -23,11 +23,13 @@ String data;
 //String path4 = baseDir + "Ethan/linux-amd64/Ethan";
 //String path5 = baseDir + "Michelle/linux-amd64/Michelle";
 
+
  String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
  String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
  String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
  String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
  String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
+ String path6 = "/home/display/Desktop/HallwayDisplay/Exports/Mette/linux-amd64/LEAFFFFF";
 
 //All the window names.
 
@@ -36,6 +38,7 @@ String windowName2 = "Lara Palombi";
 String windowName3 = "Kevin Santorelli";
 String windowName4 = "Ethan McDermott";
 String windowName5 = "Michelle Hasbun";
+String windowName6 = "Mette Oki";
 
 //All text strings.
 String findHand = "Hold one hand up. .  . The other hand behind your back. . . Keep only one hand in the frame. . ."; 
@@ -46,6 +49,7 @@ String lara = "Lara Palombi creates a rain simulation for the user to explore.  
 String kevin = "Kevin Santorelli built a project referencing early atari games such as Space Invaders.  Move the space ship and destory the alien invaders!";
 String ethan = "Ethan McDermott creates a rotating world of gradient strands.  Move your hand left to right to increase and decrease the speed of the rotation.";
 String michelle = "Michelle Hasbun designs a traditional Pong game infused with psychedelic elemnts.  Use your hand to move the paddle.";
+String mette = "Mette Oki creats a serene environment of falling leaves.  Move your hand over the tree to see them drop.";
 
 //All text objects.
 TextTitle handText;
@@ -57,6 +61,7 @@ TextBox laraText;
 TextBox kevinText;
 TextBox ethanText;
 TextBox michelleText;
+TextBox metteText;
 
 //Preview images.
 PImage img1;
@@ -64,6 +69,7 @@ PImage img2;
 PImage img3;
 PImage img4;
 PImage img5;
+PImage img6;
 
 //Hand Images.
 PShape hand;
@@ -77,6 +83,7 @@ Window w2;
 Window w3;
 Window w4;
 Window w5;
+Window w6;
 
 //Background Image. 
 PGraphics bg;
@@ -121,6 +128,7 @@ void setup(){
   img3 = loadImage("images/Kevin.png");
   img4 = loadImage("images/Ethan.png");
   img5 = loadImage("images/Michelle.png");
+  img6 = loadImage("images/Mette.png");
 
   //Load hand shapes.
   hand = loadShape("images/Hand.svg");
@@ -161,6 +169,9 @@ void setup(){
   w5 = new Window(int(width/1.85),height/4 + 400,300,300,img5,windowName5,path5);
   michelleText = new TextBox(michelle,width/1.6,height/4+400,800,w5.h,30);
  
+  //Mette's Project
+  w6 = new Window(int(width/1.85),height/4 + 800,300,300,img6,windowName6,path6);
+  metteText = new TextBox(mette,width/1.6,height/4+800,800,w6.h,30);
  
 
   //Create the background image to be drawn to the screen.  Calculate it once and save it as an image. 
@@ -285,6 +296,7 @@ void projectUI(){
     w3.launch();
     w4.launch();
     w5.launch();
+    w6.launch();
 
     //Draw the windows.
     w1.draw();
@@ -292,6 +304,7 @@ void projectUI(){
     w3.draw();
     w4.draw();
     w5.draw();
+    w6.draw();
 
     //Draw the text.
     t1.draw();
@@ -300,6 +313,7 @@ void projectUI(){
     kevinText.draw();
     ethanText.draw();
     michelleText.draw();
+    metteText.draw();
 
 }
 
