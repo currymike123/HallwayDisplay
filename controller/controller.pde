@@ -99,7 +99,11 @@ int myMouseY;
 //Custom Font
 PFont myFont;
 
-//
+// Add a counter.
+int counter;
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public void settings() {
@@ -187,6 +191,16 @@ void setup(){
   //Default mouse
   myMouseX = width/2+300;
   myMouseY = height/2;
+
+  // If counter.csv exists open it and set counter to the number.
+  if (new File(sketchPath("counter.csv")).exists()) {
+    Table table = loadTable("counter.csv");
+    TableRow row = table.getRow(0);
+    counter = row.getInt(0);
+  } else {
+    counter = 1;
+  }
+
 }
 
 
@@ -196,6 +210,9 @@ void draw(){
   
   //Draw the image to the screen.
   image(bg,0,0);
+
+  //Display the counter in a white box on the bottom right. Bug in animation carry over. 
+  //displayCounter();
   
 
   //Get the data from the server.
@@ -240,8 +257,30 @@ void draw(){
     handSearchUI();
   }
 
+  // Every 20 seconds save the counter variable to a csv file.
+  if (millis() % 20000 == 0) {
+    Table table = new Table();
+    TableRow newRow = table.addRow();
+    newRow.setInt("counter", counter);
+    saveTable(table, "counter.csv");
+  }
+
+
+  //Draw the hand.
   shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
   
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void displayCounter(){
+  pushStyle();
+  fill(255);
+  rect(width-400, height-200, 350, 75);
+  fill(0);
+  textSize(30);
+  text("Number of user: " + counter, width-390, height-150);
+  popStyle();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -468,6 +507,8 @@ class Window{
   void launch(){
 
     if(counter.checkCursorOnWindow()){
+        //Increment the counter
+        count++;
         exec(path);
         delay(30000);
         nextStateStartTime = millis();
