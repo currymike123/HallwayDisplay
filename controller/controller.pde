@@ -49,7 +49,7 @@ String lara = "Lara Palombi creates a rain simulation for the user to explore.  
 String kevin = "Kevin Santorelli built a project referencing early atari games such as Space Invaders.  Move the space ship and destory the alien invaders!";
 String ethan = "Ethan McDermott creates a rotating world of gradient strands.  Move your hand left to right to increase and decrease the speed of the rotation.";
 String michelle = "Michelle Hasbun designs a traditional Pong game infused with psychedelic elemnts.  Use your hand to move the paddle.";
-String mette = "Mette Oki creats a serene environment of falling leaves.  Move your hand over the tree to see them drop.";
+String mette = "Mette Oki creates a serene environment of falling leaves.  Move your hand over the tree to see them drop.";
 
 //All text objects.
 TextTitle handText;

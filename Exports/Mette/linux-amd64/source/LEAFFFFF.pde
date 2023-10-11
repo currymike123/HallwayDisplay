@@ -26,14 +26,19 @@ Leaf[] leaves; //leaf array
 PShape hand;
 
 void setup() {
-  size(1000,900); //screen size
+  size(1000, 900);
+  int setX = int((displayWidth - width) / 2);
+  int setY = int((displayHeight - height) / 2);
+  
+  surface.setLocation(setX,setY);
+  //size(1000,900); //screen size
   tree = loadImage("./data/tree2.png"); //load image of tree 
   cloud = loadImage("./data/cloud.png"); //load image of cloud
   leafInitloc = new PVector(0,0); //initial P Vector (leaf)
   leafState = 0; //if mouse has been pressed (leaf)
   leafCount = 0; // leaf count
   leaves = new Leaf[100]; //array of leaf object
-  frameRate(45); //framerate (leaf)
+  frameRate(45);
   leafEnd = 0; //end of movement (leaf)
   
   hand = loadShape("data/Hand.svg");
@@ -80,13 +85,15 @@ void draw() {
   println(mouseX+","+mouseY); //print mouse location
   
  // if pressed within x and y coordinate bounds, smooths out how many leaves appear with each click:
-  if(frameCount - leafCurrentframe > 20){ 
+  if(frameCount - leafCurrentframe > 60){ 
    
      if(myMouseX > 246 && myMouseX < 718 && myMouseY > 79 && myMouseY < 407) { //bounds of tree where mouse pressed mmakes leaves appear
+     
       PVector tempLoc = new PVector(myMouseX,myMouseY); 
       leaves[leafCount] = new Leaf(tempLoc);
       leafCount++;
       leafCurrentframe = frameCount;
+     
     }
   
 }
