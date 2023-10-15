@@ -10,7 +10,7 @@ String data;
 //initialize
 PImage tree; 
 PImage cloud;
-PImage leaf;
+PImage mLeaf;
 PVector leafInitloc; 
 int leafState;
 int leafCurrentframe = 0;
@@ -26,14 +26,17 @@ Leaf[] leaves; //leaf array
 PShape hand;
 
 void setup() {
-  size(1000, 900);
-  int setX = int((displayWidth - width) / 2);
-  int setY = int((displayHeight - height) / 2);
+  size(1000,900); //screen size
+  //int setX = int((displayWidth - width) / 2);
+  //int setY = int((displayHeight - height) / 2);
+  //surface.setSize(1000, 900);
+  //surface.setLocation(int((displayWidth - width) / 2), int((displayHeight - height) / 2));
   
-  surface.setLocation(setX,setY);
-  //size(1000,900); //screen size
+  translate(int(displayWidth - width) / 2, int(displayHeight - height) / 2);
+  
   tree = loadImage("./data/tree2.png"); //load image of tree 
   cloud = loadImage("./data/cloud.png"); //load image of cloud
+  mLeaf = loadImage("./data/leaf2.png");
   leafInitloc = new PVector(0,0); //initial P Vector (leaf)
   leafState = 0; //if mouse has been pressed (leaf)
   leafCount = 0; // leaf count
@@ -52,7 +55,10 @@ float myMouseY = -100;
 float myMouseX = -100;
 
 void draw() {
-  
+   if(millis() >= 30000){
+      print("Done");
+      exit();
+   }
     if (c.available() > 0) {
     // read the data from the client
     data = c.readString();
@@ -85,12 +91,12 @@ void draw() {
   println(mouseX+","+mouseY); //print mouse location
   
  // if pressed within x and y coordinate bounds, smooths out how many leaves appear with each click:
-  if(frameCount - leafCurrentframe > 60){ 
+  if(frameCount - leafCurrentframe > 40){ 
    
      if(myMouseX > 246 && myMouseX < 718 && myMouseY > 79 && myMouseY < 407) { //bounds of tree where mouse pressed mmakes leaves appear
      
       PVector tempLoc = new PVector(myMouseX,myMouseY); 
-      leaves[leafCount] = new Leaf(tempLoc);
+      leaves[leafCount] = new Leaf(tempLoc,mLeaf);
       leafCount++;
       leafCurrentframe = frameCount;
      
@@ -109,8 +115,9 @@ void draw() {
         leaves[i].DisplayLeaf(); //leaf display
     }
   }
-  checktime();
+  
   shape(hand,myMouseX,myMouseY,hand.width/6,hand.height/6); 
+  
 }
 
 float SelectRandom() { //random end position
@@ -120,12 +127,10 @@ float SelectRandom() { //random end position
 void checktime(){
    
   if(millis() > 30000){
-   
+   print("Done");
     exit();
   }
-  
 }
-
  
 
 

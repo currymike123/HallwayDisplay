@@ -15,14 +15,21 @@ String data;
 
 //All the paths to the applications.
 
-String baseDir = "./Exports/";
+//String baseDir = "./Exports/";
 
-String path  = baseDir + "Jaden/linux-amd64/jaden";
-String path2 = baseDir + "Lara/linux-amd64/rain";
-String path3 = baseDir + "Kevin/linux-amd64/Santorelli_Project";
-String path4 = baseDir + "Ethan/linux-amd64/Ethan";
-String path5 = baseDir + "Michelle/linux-amd64/Michelle";
-String path6 = baseDir + "Mette/linux-amd64/LEAFFFFF";
+//String path  = baseDir + "Jaden/linux-amd64/jaden";
+//String path2 = baseDir + "Lara/linux-amd64/rain";
+//String path3 = baseDir + "Kevin/linux-amd64/Santorelli_Project";
+//String path4 = baseDir + "Ethan/linux-amd64/Ethan";
+//String path5 = baseDir + "Michelle/linux-amd64/Michelle";
+//String path6 = baseDir + "Mette/linux-amd64/LEAFFFFF";
+
+  String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
+  String path2 = "/home/mike/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
+  String path3 = "/home/mike/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
+  String path4 = "/home/mike/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
+  String path5 = "/home/mike/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
+  String path6 = "/home/mike/Desktop/HallwayDisplay/Exports/Mette/linux-amd64/LEAFFFFF";
 
 
 //  String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
@@ -193,14 +200,14 @@ void setup(){
   myMouseX = width/2+300;
   myMouseY = height/2;
 
-  // If counter.csv exists open it and set counter to the number.
-  if (new File(sketchPath("counter.csv")).exists()) {
-    Table table = loadTable("counter.csv");
-    TableRow row = table.getRow(0);
-    counter = row.getInt(0);
-  } else {
-    counter = 1;
-  }
+  // // If counter.csv exists open it and set counter to the number.
+  // if (new File(sketchPath("counter.csv")).exists()) {
+  //   Table table = loadTable("counter.csv");
+  //   TableRow row = table.getRow(0);
+  //   counter = row.getInt(0);
+  // } else {
+  //   counter = 1;
+  // }
 
 }
 
