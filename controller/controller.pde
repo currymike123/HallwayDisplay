@@ -24,20 +24,20 @@ String data;
 //String path5 = baseDir + "Michelle/linux-amd64/Michelle";
 //String path6 = baseDir + "Mette/linux-amd64/LEAFFFFF";
 
-  // String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
-  // String path2 = "/home/mike/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
-  // String path3 = "/home/mike/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
-  // String path4 = "/home/mike/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
-  // String path5 = "/home/mike/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
-  // String path6 = "/home/mike/Desktop/HallwayDisplay/Exports/Mette/linux-amd64/LEAFFFFF";
+String path = "/home/mike/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
+String path2 = "/home/mike/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
+String path3 = "/home/mike/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
+String path4 = "/home/mike/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
+String path5 = "/home/mike/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
+String path6 = "/home/mike/Desktop/HallwayDisplay/Exports/Mette/linux-amd64/LEAFFFFF";
 
 
- String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
- String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
- String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
- String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
- String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
- String path6 = "/home/display/Desktop/HallwayDisplay/Exports/Mette/linux-amd64/LEAFFFFF";
+//  String path = "/home/display/Desktop/HallwayDisplay/Exports/Jaden/linux-amd64/jaden";
+//  String path2 = "/home/display/Desktop/HallwayDisplay//Exports/Lara/linux-amd64/rain";
+//  String path3 = "/home/display/Desktop/HallwayDisplay/Exports/Kevin/linux-amd64/Santorelli_Project";
+//  String path4 = "/home/display/Desktop/HallwayDisplay/Exports/Ethan/linux-amd64/Ethan";
+//  String path5 = "/home/display/Desktop/HallwayDisplay/Exports/Michelle/linux-amd64/Michelle";
+//  String path6 = "/home/display/Desktop/HallwayDisplay/Exports/Mette/linux-amd64/LEAFFFFF";
 
 //All the window names.
 
@@ -511,14 +511,21 @@ class Window{
     text(title,x+w-textW,y+h+fontSize);
     
   }
+  Process pr;
   
   void launch(){
 
     if(counter.checkCursorOnWindow()){
         //Increment the counter
         count++;
-        exec(path);
+        pr = exec(path);
         delay(30000);
+        if(pr != null){
+          pr.destroy();
+          println("Process Destroyed");
+        }
+        myMouseX = width/2;
+        myMouseY = height/2;
         nextStateStartTime = millis();
        
     }
