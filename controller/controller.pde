@@ -511,19 +511,22 @@ class Window{
     text(title,x+w-textW,y+h+fontSize);
     
   }
-  Process pr;
   
   void launch(){
 
     if(counter.checkCursorOnWindow()){
         //Increment the counter
         count++;
+        Process pr;
         pr = exec(path);
         delay(30000);
+
+        // Keep trying to close the process until it's closed.
         if(pr != null){
           pr.destroy();
           println("Process Destroyed");
         }
+
         myMouseX = width/2;
         myMouseY = height/2;
         nextStateStartTime = millis();
