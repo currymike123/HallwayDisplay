@@ -517,8 +517,13 @@ class Window{
     if(counter.checkCursorOnWindow()){
         //Increment the counter
         count++;
-        exec(path);
+        Process pr;
+        pr = exec(path);
         delay(30000);
+        if(pr != null){
+          pr.destroy();
+        }
+        
         myMouseX = width/2;
         myMouseY = height/2;
         nextStateStartTime = millis();
