@@ -519,6 +519,8 @@ class Window{
         count++;
         exec(path);
         delay(30000);
+        myMouseX = width/2;
+        myMouseY = height/2;
         nextStateStartTime = millis();
        
     }
