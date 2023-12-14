@@ -524,6 +524,12 @@ class Window{
         Process pr;
         pr = exec(path);
         delay(30000);
+<<<<<<< HEAD
+        if(pr != null){
+          pr.destroy();
+        }
+        
+=======
 
         // Keep trying to close the process until it's closed.
         if(pr != null){
@@ -531,6 +537,7 @@ class Window{
           println("Process Destroyed");
         }
 
+>>>>>>> 1b89b0b7b5b1b47e8cb34fa225a43f5da57af4c1
         myMouseX = width/2;
         myMouseY = height/2;
         nextStateStartTime = millis();
