@@ -116,9 +116,11 @@ int counter;
 
 public void settings() {
 
-  screenX = displayWidth;
-  screenY = displayHeight;
+  screenX = 1920;
+  screenY = 1080;
+ 
   size(screenX,screenY, P2D); // Set the desired width and height
+ 
 }
 
 // Check how many hands are on the screen to set the UI.
@@ -130,6 +132,8 @@ int lastChangeTime;  // Time when the last state change happened
 int nextStateStartTime; // Time when the next state should be set
 
 void setup(){
+
+  surface.setResizable(true);
   //Set the times to delay the change of UI.
   lastChangeTime = millis();
   nextStateStartTime = millis();
@@ -155,10 +159,10 @@ void setup(){
 
   //Create all the objects.
   handText = new TextTitle(width/18,height-400,findHand,80);
-  handSearching = new TextTitle(width/2-605,1480,handSearch,60);
+  handSearching = new TextTitle(width/2-300,740,handSearch,30);
 
   //Title
-  t1 = new TextTitle(width/5,height/6,title,60);
+  t1 = new TextTitle((width/5)/2,(height/6)/2,title,30);
 
   //Jaden's Project
   w1 = new Window(width/5,height/4,300,300,img1,windowName,path);
@@ -275,7 +279,7 @@ void draw(){
 
 
   //Draw the hand.
-  shape(hand,myMouseX,myMouseY,hand.width/2,hand.height/2); 
+  shape(hand,myMouseX,myMouseY,hand.width/4,hand.height/4); 
   
 }
 
@@ -299,18 +303,18 @@ void handSearchUI(){
   fill(80,170,220,50);
       noStroke();
       rectMode(CENTER);
-      rect(width/2,height/2,1300,1500);
+      rect(width/2,height/2,(1300)/2,(1500)/2);
       rectMode(CORNER);
-      textSize(170);
+      textSize(85);
       fill(160);
-      text("Computational",width/2-605,495);
-      text("Media",width/2+140,640);
-      textSize(50);
-      text("(1) Hold one hand up.",width/2-605,1620);
-      text("(2) The other behind your back.",width/2-605,1700);
-      text("(3) Keep only one hand in the frame.",width/2-605,1780);
+      text("Computational",width/2-300,250);
+      text("Media",width/2+70,320);
+      textSize(25);
+      text("(1) Hold one hand up.",width/2-300,810);
+      text("(2) The other behind your back.",width/2-300,850);
+      text("(3) Keep only one hand in the frame.",width/2-300,890);
 
-      shape(hand,width/2+350,height/2,hand.width/2,hand.height/2);
+      shape(hand,width/2+175,height/2,hand.width/4,hand.height/4);
       
       // text("Media",width/2-605,1710);
       
@@ -318,13 +322,13 @@ void handSearchUI(){
       shapeMode(CENTER);
       if(count<60){
         
-        shape(hand1,width/2-200,height/2-60);
+        shape(hand1,width/2-100,height/2-30,hand.width/2,hand.height/2);
         count++;
       }else if(count>=60 && count<120){
-        shape(hand2,width/2-200,height/2-60);
+        shape(hand2,width/2-100,height/2-30,hand.width/2,hand.height/2);
         count++;
       }else if(count>=120 && count<180){
-        shape(hand3,width/2-200,height/2-60);
+        shape(hand3,width/2-100,height/2-30,hand.width/2,hand.height/2);
         count++;
       }else{
         count = 0;
