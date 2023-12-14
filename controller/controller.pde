@@ -216,8 +216,6 @@ void setup(){
 }
 
 
-
-
 void draw(){
   
   //Draw the image to the screen.
@@ -285,6 +283,24 @@ void draw(){
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//Function to return position on screen.
+
+int setPos(float pos,int dir){
+  print(dir);
+  if(dir == 0){
+    float x = (pos/12) * width;
+    println(x);
+    return int(x);
+  }else if(dir == 1){
+    float y = (pos/12) * height;
+    return int(y);
+  }else{
+    return 0;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void displayCounter(){
   pushStyle();
   fill(255);
@@ -303,12 +319,12 @@ void handSearchUI(){
   fill(80,170,220,50);
       noStroke();
       rectMode(CENTER);
-      rect(width/2,height/2,(1300)/2,(1500)/2);
+      rect(setPos(6,0),setPos(6,1),setPos(4,0),setPos(8,1));
       rectMode(CORNER);
       textSize(85);
       fill(160);
-      text("Computational",width/2-300,250);
-      text("Media",width/2+70,320);
+      text("Computational",setPos(4.1,0),setPos(2.9,1));
+      text("Media",setPos(6.4,0),setPos(3.8,1));
       textSize(25);
       text("(1) Hold one hand up.",width/2-300,810);
       text("(2) The other behind your back.",width/2-300,850);
@@ -524,20 +540,10 @@ class Window{
         Process pr;
         pr = exec(path);
         delay(30000);
-<<<<<<< HEAD
         if(pr != null){
           pr.destroy();
         }
         
-=======
-
-        // Keep trying to close the process until it's closed.
-        if(pr != null){
-          pr.destroy();
-          println("Process Destroyed");
-        }
-
->>>>>>> 1b89b0b7b5b1b47e8cb34fa225a43f5da57af4c1
         myMouseX = width/2;
         myMouseY = height/2;
         nextStateStartTime = millis();
