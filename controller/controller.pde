@@ -159,35 +159,35 @@ void setup(){
 
   //Create all the objects.
   handText = new TextTitle(width/18,height-400,findHand,80);
-  handSearching = new TextTitle(width/2-300,740,handSearch,30);
+  handSearching = new TextTitle(setPos(4.1,0),setPos(7.5,1),handSearch,30);
 
   //Title
-  t1 = new TextTitle((width/5)/2,(height/6)/2,title,30);
+  t1 = new TextTitle(setPos(2,0),setPos(1,1),title,20);
 
   //Jaden's Project
-  w1 = new Window(width/5,height/4,300,300,img1,windowName,path);
-  jadenText = new TextBox(jaden,width/3.5,height/4,800,w1.h,30);
+  w1 = new Window(setPos(2,0),setPos(2,1),150,150,img1,windowName,path);
+  jadenText = new TextBox(jaden,setPos(3,0),setPos(2,1),400,w1.h,15);
   //t2 = new TextTitle(width/3,height/4,jaden,30);
 
   //Lara's Project
-  w2 = new Window(width/5,height/4 + 400 ,300,300,img2,windowName2,path2);
-  laraText = new TextBox(lara,width/3.5,height/4 + 400,800,w2.h,30);
+  w2 = new Window(setPos(2,0),setPos(5,1),150,150,img2,windowName2,path2);
+  laraText = new TextBox(lara,setPos(3,0),setPos(5,1),400,w2.h,15);
   
   //Kevin's Project
-  w3 = new Window(width/5,height/4 + 800,300,300,img3,windowName3,path3);
-  kevinText = new TextBox(kevin,width/3.5,height/4 + 800,800,w3.h,30);
+  w3 = new Window(setPos(2,0),setPos(8,1),150,150,img3,windowName3,path3);
+  kevinText = new TextBox(kevin,setPos(3,0),setPos(8,1),400,w3.h,15);
   
   //Ethan's Project
-  w4 = new Window(int(width/1.85),height/4,300,300,img4,windowName4,path4);
-  ethanText = new TextBox(ethan,width/1.6,height/4,800,w4.h,30);
+  w4 = new Window(setPos(6,0), setPos(2,1),150,150,img4,windowName4,path4);
+  ethanText = new TextBox(ethan,setPos(7,0),setPos(2,1),400,w4.h,15);
   
   //Michelle's Project
-  w5 = new Window(int(width/1.85),height/4 + 400,300,300,img5,windowName5,path5);
-  michelleText = new TextBox(michelle,width/1.6,height/4+400,800,w5.h,30);
+  w5 = new Window(setPos(6,0),setPos(5,1),150,150,img5,windowName5,path5);
+  michelleText = new TextBox(michelle,setPos(7,0),setPos(5,1),400,w5.h,15);
  
   //Mette's Project
-  w6 = new Window(int(width/1.85),height/4 + 800,300,300,img6,windowName6,path6);
-  metteText = new TextBox(mette,width/1.6,height/4+800,800,w6.h,30);
+  w6 = new Window(setPos(6,0),setPos(8,1),150,150,img6,windowName6,path6);
+  metteText = new TextBox(mette,setPos(7,0),setPos(8,1),400,w6.h,15);
  
 
   //Create the background image to be drawn to the screen.  Calculate it once and save it as an image. 
@@ -201,8 +201,8 @@ void setup(){
   c = new Client(this, "localhost", 9999);
   
   //Default mouse
-  myMouseX = width/2+300;
-  myMouseY = height/2;
+  myMouseX = setPos(7,0);
+  myMouseY = setPos(6,1);
 
   // // If counter.csv exists open it and set counter to the number.
   // if (new File(sketchPath("counter.csv")).exists()) {
@@ -286,13 +286,11 @@ void draw(){
 //Function to return position on screen.
 
 int setPos(float pos,int dir){
-  print(dir);
   if(dir == 0){
-    float x = (pos/12) * width;
-    println(x);
+    float x = (pos/12) * screenX;
     return int(x);
   }else if(dir == 1){
-    float y = (pos/12) * height;
+    float y = (pos/12) * screenY;
     return int(y);
   }else{
     return 0;
@@ -326,11 +324,11 @@ void handSearchUI(){
       text("Computational",setPos(4.1,0),setPos(2.9,1));
       text("Media",setPos(6.4,0),setPos(3.8,1));
       textSize(25);
-      text("(1) Hold one hand up.",width/2-300,810);
-      text("(2) The other behind your back.",width/2-300,850);
-      text("(3) Keep only one hand in the frame.",width/2-300,890);
+      text("(1) Hold one hand up.",setPos(4.1,0),setPos(8.5,1));
+      text("(2) The other behind your back.",setPos(4.1,0),setPos(9,1));
+      text("(3) Keep only one hand in the frame.",setPos(4.1,0),setPos(9.5,1));
 
-      shape(hand,width/2+175,height/2,hand.width/4,hand.height/4);
+      shape(hand,setPos(7,0),setPos(6,1),hand.width/4,hand.height/4);
       
       // text("Media",width/2-605,1710);
       
@@ -338,13 +336,13 @@ void handSearchUI(){
       shapeMode(CENTER);
       if(count<60){
         
-        shape(hand1,width/2-100,height/2-30,hand.width/2,hand.height/2);
+        shape(hand1,setPos(5,0),setPos(5.2,1),hand.width/2,hand.height/2);
         count++;
       }else if(count>=60 && count<120){
-        shape(hand2,width/2-100,height/2-30,hand.width/2,hand.height/2);
+        shape(hand2,setPos(5,0),setPos(5.2,1),hand.width/2,hand.height/2);
         count++;
       }else if(count>=120 && count<180){
-        shape(hand3,width/2-100,height/2-30,hand.width/2,hand.height/2);
+        shape(hand3,setPos(5,0),setPos(5.2,1),hand.width/2,hand.height/2);
         count++;
       }else{
         count = 0;
@@ -491,7 +489,7 @@ class Window{
     this.w = w;
     this.h = h;
     frame = 0;
-    fontSize = 22;;
+    fontSize = 11;;
     this.img = img;
     this.title = title;
     this.path = path;
