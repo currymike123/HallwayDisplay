@@ -16,6 +16,10 @@ import processing.net.*;
 
 //Global Variables
 
+//Previous Position
+float prevPosX;
+float prevPosY;
+
 //Variables for the server.
 Client c;
 String data;
@@ -57,6 +61,9 @@ void setup()
 
    mouseLoc = new PVector(0,0);
 
+   prevPosX = mouseX;
+   prevPosY = mouseY;
+
    
 
 //Set the size of the array of projectiles
@@ -82,18 +89,26 @@ void draw()
     //Set the mouse position to the data from the server.
     myMouseX = int(map(int(x),0,640,0,width));
     myMouseY = int(map(int(y),0,480,0,height));
+    println(myMouseX);
   }
   //background(0);
-  mouseLoc.set(myMouseX,myMouseY);
+  //mouseLoc.set(myMouseX,myMouseY);
   fill(0,100);
   rect(0,0,width,height);
   
   player.speed();
   player.bounce();
   
+  PVector force = new PVector(0,0);
+
+  force.x = myMouseX - prevPosX;
+  force.y = myMouseY - prevPosY;
+  
+  player.applyForce(force); 
+  
   if(keyPressed)
     {
-      PVector force = new PVector(0,0);
+      //PVector force = new PVector(0,0);
       
      //All of these if statements are to establish all of the keyboard inputs and result in a change to the "Force" that will be applied to the player
      if(key == 'w' && key=='a')
@@ -220,9 +235,9 @@ void draw()
   }
   noStroke();
   fill(0);
-  ellipse(myMouseX,myMouseY, 15, 15);
+  //ellipse(myMouseX,myMouseY, 15, 15);
   fill(255,0,0);                                    //These ellipses are for drawing the mouse cursor
-  ellipse(myMouseX,myMouseY, 10, 10);
+  //ellipse(myMouseX,myMouseY, 10, 10);
   player.display();                              //Displays the player (duh)
   
   if(mousePressed)                              //If the mouse is being held, the amount of projectiles fired goes up
@@ -231,6 +246,9 @@ void draw()
      tempFrame=frameCount;
   }
   
+
+  prevPosX = myMouseX;
+  prevPosY = myMouseY;
 }
   
   //void mouseClicked()
